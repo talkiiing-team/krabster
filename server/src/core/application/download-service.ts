@@ -8,8 +8,6 @@ import {
   OutputMessage,
   WorkerMpi,
   DownloadKey,
-  DownloadTaskError,
-  DownloadTaskErrorKind,
 } from '@sovok/server/core/domain'
 import {
   DownloadTasksRepository,
@@ -21,7 +19,7 @@ import {
   InsertDownload,
   InsertDownloadInjection,
 } from './downloads-repository'
-import { DownloadOutput, Injection } from '@sovok/shared'
+import { Injection } from '@sovok/shared'
 
 type DownloadServiceDeps = WorkerMpiInjection &
   DownloadTasksRepositoryInjection &
@@ -56,13 +54,19 @@ export class DownloadService {
     console.log('Getting download')
     const existingDownload = await this.getDownload(key)
 
+    console.log('Existing download', existingDownload)
+
     if (existingDownload) {
       return existingDownload
     }
 
     const download = await this.handleWorkerDownload(key)
 
+    console.log('Download', download)
+
     await this.insertDownload(download)
+
+    console.log('Inserted download')
 
     return download
   }

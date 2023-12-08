@@ -32,7 +32,8 @@ const isValidVideoTitle = (videoName: string, query: string) =>
   )
 
 export const youtubePlatformDownloadApi: PlatformDownloadApi = async track => {
-  const searchTerm = [getArtistsString(track.artists), track.title].join('–')
+  const searchTerm = [getArtistsString(track.artists), track.title].join(' – ')
+  console.log('Search term', searchTerm)
 
   const url = new URL('https://youtube.com/results')
   url.searchParams.set('search_query', searchTerm)
@@ -87,9 +88,10 @@ export const youtubePlatformDownloadApi: PlatformDownloadApi = async track => {
 
         if (duration > MAX_VIDEO_DURATION_MS) return null
 
-        const deviationSec = Math.abs(duration - (track.durationMs ?? 0))
-
-        if (deviationSec > MAX_VIDEO_DURATION_DEVIATION_MS) return null
+        if (track.durationMs !== null) {
+          const deviationMs = Math.abs(duration - (track.durationMs ?? 0))
+          if (deviationMs > MAX_VIDEO_DURATION_DEVIATION_MS) return null
+        }
 
         const viewCount = parseInt(
           (videoRenderer.viewCountText?.simpleText as string)
