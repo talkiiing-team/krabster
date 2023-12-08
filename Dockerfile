@@ -10,6 +10,7 @@ ENV NODE_ENV=development
 RUN npm ci
 COPY . .
 RUN npm run -w @sovok/server generate
+ENV NODE_ENV=production
 RUN npm run build
 
 FROM node:18-alpine3.17 as runtime
@@ -25,5 +26,7 @@ COPY --from=build --chown=app /app/dist ./dist/
 COPY --from=build --chown=app /app/server/package.json ./server/
 COPY --from=build --chown=app /app/server/prisma/ ./server/prisma/
 COPY --from=build --chown=app /app/package.json .
+
+ENV NODE_ENV=production
 
 CMD ["npm", "start"]

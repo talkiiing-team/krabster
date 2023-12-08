@@ -56,7 +56,9 @@ export const createContainer = (): AppContainer => {
     appContactInfo: 'roamiiing@roamiiing.ru',
   })
 
-  const worker = new Worker(path.resolve(__dirname, 'worker.ts'))
+  const WORKER_FILENAME = process.env.NODE_ENV === 'development' ? 'worker.ts' : 'worker.js'
+
+  const worker = new Worker(path.resolve(__dirname, WORKER_FILENAME))
   const workerMpi: WorkerMpi = new MessagePassingInterface(worker)
 
   const container = newContainer<AppContainer>()
