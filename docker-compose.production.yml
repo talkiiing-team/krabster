@@ -11,13 +11,19 @@ services:
       - database_data:/var/lib/postgresql/data
 
   web:
-    image: 'ghcr.io/talkiiing-team/sovok:latest'
+    image: 'ghcr.io/talkiiing-team/krabster:latest'
     ports:
-      - '${WEB_EXPOSE}:${WEB_PORT}'
+      - '${WEB_EXPOSE}:3000'
     environment:
-      SOVOK_SERVER_PORT: ${WEB_PORT}
-      SOVOK_DATABASE_URL: ${WEB_DATABASE_URL}
-      SOVOK_SERVER_JWT_SECRET: ${WEB_JWT_SECRET}
+        SOVOK_SERVER_DATABASE_URL: postgres://${DATABASE_USER}:${DATABASE_PASSWORD}@database:5432/${DATABASE_DB}
+        SOVOK_SERVER_JWT_SECRET: ${SOVOK_SERVER_JWT_SECRET}
+        SOVOK_SERVER_S3_SERVER: ${SOVOK_SERVER_S3_SERVER}
+        SOVOK_SERVER_S3_BUCKET: ${SOVOK_SERVER_S3_BUCKET}
+        SOVOK_SERVER_S3_REGION: ${SOVOK_SERVER_S3_REGION}
+        SOVOK_SERVER_S3_ACCESS_KEY: ${SOVOK_SERVER_S3_ACCESS_KEY}
+        SOVOK_SERVER_S3_SECRET_KEY: ${SOVOK_SERVER_S3_SECRET_KEY}
+        SOVOK_SERVER_S3_ENDPOINT: ${SOVOK_SERVER_S3_ENDPOINT}
+        SOVOK_SERVER_S3_FOLDER: ${SOVOK_SERVER_S3_FOLDER}
 
 volumes:
   database_data:
