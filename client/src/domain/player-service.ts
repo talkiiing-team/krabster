@@ -82,6 +82,7 @@ export class PlayerService {
 
       console.log(`Loading audio from ${src}`)
 
+      audio.crossOrigin = 'anonymous'
       audio.autoplay = true
       audio.preload = 'auto'
       audio.src = src
