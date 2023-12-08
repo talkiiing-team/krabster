@@ -1,0 +1,30 @@
+{
+  "compilerOptions": {
+    "target": "ES2021",
+    "useDefineForClassFields": true,
+    "lib": ["ES2021", "DOM", "DOM.Iterable", "WebWorker"],
+    "skipLibCheck": true,
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "downlevelIteration": true,
+    "types": ["node"],
+
+    /* Linting */
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
+
+    "baseUrl": ".",
+    "paths": {
+      "@sovok/shared": ["./shared/src/index.ts"],
+      "@sovok/shared/*": ["./shared/src/*"],
+
+      "@sovok/server": ["./server/src/index.ts"],
+      "@sovok/server/*": ["./server/src/*"],
+
+      "@sovok/client": ["./client/src/index.ts"],
+      "@sovok/client/*": ["./client/src/*"]
+    }
+  }
+}

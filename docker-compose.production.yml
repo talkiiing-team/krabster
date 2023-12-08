@@ -1,0 +1,23 @@
+services:
+  database:
+    image: 'postgres:15.0'
+    ports:
+      - '${DATABASE_EXPOSE}:5432'
+    environment:
+      POSTGRES_USER: ${DATABASE_USER}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+      POSTGRES_DB: ${DATABASE_DB}
+    volumes:
+      - database_data:/var/lib/postgresql/data
+
+  web:
+    image: 'ghcr.io/talkiiing-team/sovok:latest'
+    ports:
+      - '${WEB_EXPOSE}:${WEB_PORT}'
+    environment:
+      SOVOK_SERVER_PORT: ${WEB_PORT}
+      SOVOK_DATABASE_URL: ${WEB_DATABASE_URL}
+      SOVOK_SERVER_JWT_SECRET: ${WEB_JWT_SECRET}
+
+volumes:
+  database_data:
