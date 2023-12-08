@@ -75,7 +75,8 @@ model TrackArtist {
   trackId String
   track   Track  @relation(fields: [trackId], references: [id])
 
-  name String?
+  name  String?
+  order Int     @default(0)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -91,6 +92,7 @@ model ReleaseArtist {
 
   releaseId String
   release   Release @relation(fields: [releaseId], references: [id])
+  order     Int     @default(0)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

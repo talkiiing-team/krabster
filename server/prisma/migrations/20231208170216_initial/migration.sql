@@ -39,11 +39,12 @@ CREATE TABLE "Release" (
 
 -- CreateTable
 CREATE TABLE "TrackArtist" (
-    "id" TEXT NOT NULL,
+    "id" SERIAL NOT NULL,
     "joinPhrase" TEXT,
     "artistId" TEXT NOT NULL,
     "trackId" TEXT NOT NULL,
     "name" TEXT,
+    "order" INTEGER NOT NULL DEFAULT 0,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
@@ -52,11 +53,12 @@ CREATE TABLE "TrackArtist" (
 
 -- CreateTable
 CREATE TABLE "ReleaseArtist" (
-    "id" TEXT NOT NULL,
+    "id" SERIAL NOT NULL,
     "joinPhrase" TEXT,
     "name" TEXT,
     "artistId" TEXT NOT NULL,
     "releaseId" TEXT NOT NULL,
+    "order" INTEGER NOT NULL DEFAULT 0,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
@@ -65,7 +67,7 @@ CREATE TABLE "ReleaseArtist" (
 
 -- CreateTable
 CREATE TABLE "TrackRelease" (
-    "id" TEXT NOT NULL,
+    "id" SERIAL NOT NULL,
     "releaseId" TEXT NOT NULL,
     "trackId" TEXT NOT NULL,
     "position" INTEGER NOT NULL,

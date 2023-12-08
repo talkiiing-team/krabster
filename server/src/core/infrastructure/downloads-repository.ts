@@ -80,6 +80,9 @@ export const getDownload =
               include: {
                 artist: true,
               },
+              orderBy: {
+                order: 'asc',
+              }
             },
             releases: {
               include: {
@@ -89,6 +92,9 @@ export const getDownload =
                       include: {
                         artist: true,
                       },
+                      orderBy: {
+                        order: 'asc',
+                      }
                     },
                   },
                 },
@@ -146,11 +152,12 @@ export const insertDownload =
 
         await prisma.releaseArtist.createMany({
           data: download.track.releases.flatMap(release =>
-            release.release.artists.map(artist => ({
+            release.release.artists.map((artist, order) => ({
               name: artist.name,
               joinPhrase: artist.joinPhrase,
               artistId: artist.artist.id,
               releaseId: release.release.id,
+              order,
             })),
           ),
         })
@@ -162,9 +169,10 @@ export const insertDownload =
             durationMs: download.track.durationMs,
 
             artists: {
-              create: download.track.artists.map(artist => ({
+              create: download.track.artists.map((artist, order) => ({
                 name: artist.name,
                 joinPhrase: artist.joinPhrase,
+                order,
 
                 artist: {
                   connect: {
