@@ -14,6 +14,7 @@ export const s3PlatformUploadApi =
         Bucket: env.SOVOK_SERVER_S3_BUCKET,
         Key: uploadPath,
         Body: stream,
+        ACL: 'public-read',
       })
       .promise()
   }
